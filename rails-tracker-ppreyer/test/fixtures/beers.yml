@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: beers
+#
+#  id         :bigint(8)        not null, primary key
+#  name       :string
+#  style      :string
+#  hop        :string
+#  yeast      :string
+#  malts      :string
+#  ibu        :string
+#  alcohol    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  note_id    :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  style: MyString
+  hop: MyString
+  yeast: MyString
+  malts: MyString
+  ibu: MyString
+  : 
+
+two:
+  name: MyString
+  style: MyString
+  hop: MyString
+  yeast: MyString
+  malts: MyString
+  ibu: MyString
+  : 
