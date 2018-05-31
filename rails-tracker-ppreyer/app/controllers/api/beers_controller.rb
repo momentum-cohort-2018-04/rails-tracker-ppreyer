@@ -13,7 +13,7 @@ class Api::BeersController < ApplicationController
   def create
     @beer = Beer.new(beer_params)
     if @beer.save
-      render json: @beer, status: :created, location: @beer
+      render json: @beer, status: :created, location: api_beers_path
     else
       render json: @beer.errors, status: :unprocessable_entity
     end
