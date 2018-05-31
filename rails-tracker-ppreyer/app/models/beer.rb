@@ -9,10 +9,11 @@
 #  yeast      :string
 #  malts      :string
 #  ibu        :string
-#  alcohol    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  note_id    :integer
+#  alcohol    :float
+#  seen       :boolean
 #
 
 class Beer < ApplicationRecord

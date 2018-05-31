@@ -1,13 +1,34 @@
 class Api::BeersController < ApplicationController
-  
   def index 
-    if params[:name].blank?
+    if params[:seen] == "1"
       @beers = Beer.all
-      render json: @beers
+      @seen_beers = @beers.select do |beer|
+        beer[:seen] == true
+      end
+      render json: @seen_beers
+    elsif params[:seen] == "0"
+      @beers = Beer.all
+      @unseen_beers = @beers.select do |beer|
+        beer[:seen] == false
+      end
+      render json: @unseen_beers
+    elsif params[:sort] == "id"
+      @beers = Beer.all
+      @sorted_beers = @beers.sort
+      render json: @sorted_beers
+    elsif params[:sort] == "alcohol"
+      @beers = Beer.all
+      @sorted_beers = @beers.sort_by(&:alcohol).reverse
+      render json: @sorted_beers
     else
-      @beer_name = params[:name]
-      @beers = Beer.find(@beer_name) 
-      render json: @beers
+      if params[:name].blank?
+        @beers = Beer.all
+        render json: @beers
+      else
+        @beer_name = params[:name]
+        @beers = Beer.find_by! name: @beer_name
+        render json: @beers
+      end
     end
   end
 

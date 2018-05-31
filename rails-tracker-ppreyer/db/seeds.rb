@@ -14,7 +14,8 @@
     yeast: Faker::Beer.yeast,
     malts: Faker::Beer.malts,
     ibu: Faker::Beer.ibu,
-    alcohol: Faker::Beer.alcohol,
+    alcohol: Faker::Beer.alcohol.to_f,
+    seen: [true, false].sample,
     note_id: Faker::Number.between(1, 100)
   )
 end
