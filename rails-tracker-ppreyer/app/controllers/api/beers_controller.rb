@@ -10,13 +10,24 @@ class Api::BeersController < ApplicationController
     render json: @beer
   end
 
-  def destroy
-    @beer = Beer.find(params[:id])
-    if @beer
-      @beer.destroy
-      render status 202
+  def create
+    @beer = Beer.new(beer_params)
+    if @beer.save
+      render json: @beer, status: :created, location: @beer
     else
-      render status 404
+      render json: @beer.errors, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    @beer = Beer.find(params[:id])
+    @beer.destroy
+  end
+
+  private
+
+  def beer_params
+    params.require(:beer).permit(:id, :name, :style, :hop, :yeast, :malts, :ibu, :alcohol, :note_id)
+  end
+
 end
