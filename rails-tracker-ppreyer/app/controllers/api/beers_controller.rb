@@ -1,8 +1,14 @@
 class Api::BeersController < ApplicationController
   
   def index 
-    @beers = Beer.all
-    render json: @beers
+    if params[:name].blank?
+      @beers = Beer.all
+      render json: @beers
+    else
+      @beer_name = params[:name]
+      @beers = Beer.find(@beer_name) 
+      render json: @beers
+    end
   end
 
   def show
@@ -13,9 +19,18 @@ class Api::BeersController < ApplicationController
   def create
     @beer = Beer.new(beer_params)
     if @beer.save
-      render json: @beer, status: :created, location: api_beers_path
+      render json: @beer, status: 201, location: api_beers_path
     else
-      render json: @beer.errors, status: :unprocessable_entity
+      render json: @beer.errors, status: 404
+    end
+  end
+
+  def update
+    @beer = Beer.find(params[:id])
+    if @beer.update(beer_params)
+      render json: @beer
+    else
+      render json: @beer.errors, status: 404
     end
   end
 

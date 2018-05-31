@@ -8,16 +8,26 @@ class Api::NotesController < ApplicationController
 
   def show
     @beer = Beer.find(params[:beer_id])
-    @note = @beer.notes.find(params[:id])
-    render json: @note
+    @notes = @beer.notes.find(params[:id])
+    render json: @notes
   end
 
   def create
     @note = Note.new(note_params)
     if @note.save
-      render json: @note, status: :created
+      render json: @note, status: :created, location: @note
     else
       render json: @note.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @beer = Beer.find(params[:beer_id])
+    @note = @beer.notes.find(params[:id])
+    if @note.update(note_params)
+      render json: @note
+    else
+      render json: @note.errors, status: 404
     end
   end
 
