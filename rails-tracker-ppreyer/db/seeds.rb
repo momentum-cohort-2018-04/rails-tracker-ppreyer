@@ -22,7 +22,7 @@ end
 
 100.times do 
   Note.create(
-    content: Faker::Beer.style,
+    content: Faker::Lorem.sentences,
     beer_id: Faker::Number.between(1, 100)
   )
 end
